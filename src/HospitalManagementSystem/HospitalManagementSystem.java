@@ -18,6 +18,13 @@ public class HospitalManagementSystem {
         Scanner scanner = new Scanner(System.in);
         try{
             Connection connection = DriverManager.getConnection(url, username, password);
+            // Add login functionalityhd
+            Login login = new Login(connection, scanner);
+            String role = login.authenticateUser();
+            if (role == null) {
+                System.out.println("Exiting system due to failed login.");
+                return;
+            }
             Patient patient = new Patient(connection, scanner);
             Doctor doctor = new Doctor(connection, scanner);
             while(true){
